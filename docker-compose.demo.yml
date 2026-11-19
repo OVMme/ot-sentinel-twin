@@ -1,0 +1,9 @@
+# Demo overlay: reproducible scripted storyline (normal -> C manipulation -> B stuck valve -> D pump fault
+# -> E blocked outlet -> G drift, looping) with all state-changing API calls disabled.
+#   docker compose -f docker-compose.yml -f docker-compose.demo.yml up --build
+services:
+  backend:
+    environment:
+      OTST_DEMO_MODE: "true"
+      OTST_READ_ONLY: "true"
+      OTST_MAX_SPEED: "1"

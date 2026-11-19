@@ -1,0 +1,164 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #060a13;
+  --color-panel: #0c1322;
+  --color-panel-2: #101a2d;
+  --color-raised: #15213a;
+  --color-line: #1c2943;
+  --color-line-strong: #2a3b5e;
+  --color-text: #dce5f5;
+  --color-muted: #8492ad;
+  --color-faint: #56637d;
+  --color-cyan: #22d3ee;
+  --color-cyan-dim: #0e7490;
+  --color-ok: #22c55e;
+  --color-warn: #f59e0b;
+  --color-crit: #ef4444;
+  --color-replay: #a78bfa;
+  --color-truth: #f0abfc;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    background:
+      radial-gradient(1200px 600px at 85% -10%, rgba(34, 211, 238, 0.07), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(167, 139, 250, 0.05), transparent 60%),
+      var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-cyan);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: rgba(34, 211, 238, 0.3);
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-strong) transparent;
+  }
+}
+
+@layer components {
+  .panel {
+    background: linear-gradient(180deg, rgba(16, 26, 45, 0.92), rgba(12, 19, 34, 0.92));
+    border: 1px solid var(--color-line);
+    border-radius: 14px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 12px 32px -18px rgba(0, 0, 0, 0.6);
+  }
+  .num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+  .label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-weight: 600;
+  }
+  .input {
+    background: var(--color-bg);
+    border: 1px solid var(--color-line-strong);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 13px;
+    color: var(--color-text);
+  }
+  .input:focus {
+    border-color: var(--color-cyan);
+    outline: none;
+  }
+}
+
+/* --- Plant animations ---------------------------------------------------------------- */
+@keyframes otst-flow {
+  to {
+    stroke-dashoffset: -48;
+  }
+}
+@keyframes otst-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes otst-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes otst-wave {
+  to {
+    transform: translateX(-80px);
+  }
+}
+.flow-line {
+  stroke-dasharray: 14 10;
+  animation: otst-flow linear infinite;
+}
+.rotor {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: otst-spin 0.9s linear infinite;
+}
+.pulse {
+  animation: otst-pulse 1.4s ease-in-out infinite;
+}
+.wave {
+  animation: otst-wave 3.2s linear infinite;
+}
+.liquid {
+  transition:
+    y 0.45s linear,
+    height 0.45s linear;
+}
+.marker-move {
+  transition: transform 0.45s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-line,
+  .rotor,
+  .pulse,
+  .wave {
+    animation: none !important;
+  }
+  .liquid,
+  .marker-move {
+    transition: none !important;
+  }
+}
+
+@media print {
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .panel {
+    background: #fff !important;
+    border-color: #ccc !important;
+    box-shadow: none !important;
+    color: #111 !important;
+  }
+  .print-area * {
+    color: #111 !important;
+  }
+}

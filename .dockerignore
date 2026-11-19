@@ -1,0 +1,16 @@
+# Root build context (backend image). Only backend/ and the reference evaluation are needed.
+**/node_modules
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+**/*.egg-info
+.git
+.venv
+backend/data
+backend/tests
+frontend
+docs
+datasets/synthetic/*.csv
+*.db

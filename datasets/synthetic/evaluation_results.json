@@ -1,0 +1,1938 @@
+{
+ "robustness": {
+  "description": "A 'real' plant that deviates from the detector's nominal model (robustness study).\n\nAt severity 1.0: tank area +3 %, inlet capacity +4 %, outlet valve Kv -5 %, pump shut-off head -4 %,\nvalve stroke 15 % slower, instrument noise x1.5. Deviations scale linearly with ``severity``.\nThe detector keeps using the nominal model.",
+  "sweep": [
+   {
+    "severity": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "latency_mean_s": 11.22,
+    "false_positive_alerts": 0,
+    "normal_operation_false_positives": 0,
+    "classification_accuracy": 1.0,
+    "false_positive_rules": [],
+    "missed": []
+   },
+   {
+    "severity": 2.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "latency_mean_s": 11.11,
+    "false_positive_alerts": 0,
+    "normal_operation_false_positives": 0,
+    "classification_accuracy": 1.0,
+    "false_positive_rules": [],
+    "missed": []
+   },
+   {
+    "severity": 3.0,
+    "precision": 0.569,
+    "recall": 0.8889,
+    "f1": 0.6938,
+    "latency_mean_s": 11.75,
+    "false_positive_alerts": 50,
+    "normal_operation_false_positives": 3,
+    "classification_accuracy": 0.6667,
+    "false_positive_rules": [
+     "PHYS-004",
+     "PHYS-007"
+    ],
+    "missed": [
+     "E Blocked Outlet"
+    ]
+   }
+  ]
+ },
+ "generated_at": "2026-11-19T17:14:11Z",
+ "data_notice": "All data is synthetic. Results describe the detector's behaviour on this simulated plant only.",
+ "seeds": [
+  1337,
+  2024,
+  4242
+ ],
+ "definitions": {
+  "ground_truth_window": "[fault onset, scenario stop + 30 s]",
+  "warmup_s": 120.0,
+  "cooldown_s": 90.0,
+  "true_positive": "Scenario run in which >=1 expected rule raises an alert inside the ground-truth window.",
+  "false_positive": "Any alert not raised by an expected/allowed rule inside the window (incl. all alerts during normal operation, warm-up and cool-down).",
+  "precision": "attributed alerts / all alerts",
+  "recall": "detected anomalous runs / anomalous runs",
+  "latency": "first expected-rule alert raise time - fault onset time"
+ },
+ "summary": {
+  "runs": 30,
+  "anomalous_runs": 27,
+  "true_positives": 27,
+  "false_negatives": 0,
+  "attributed_alerts": 67,
+  "false_positive_alerts": 0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "latency_mean_s": 11.76,
+  "latency_max_s": 27.5,
+  "normal_operation_hours": 1.5,
+  "normal_operation_false_positives": 0,
+  "false_positives_per_hour_normal": 0.0,
+  "classification_accuracy": 1.0,
+  "coverage_matrix": [
+   {
+    "scenario": "A Normal Operation (30 min)",
+    "code": "A",
+    "expected_rules": [],
+    "allowed_rules": [],
+    "runs": 3,
+    "detected": 0,
+    "false_positives": 0,
+    "rules_fired": [],
+    "classification_expected": null,
+    "classification_ok": 0,
+    "classifications": [],
+    "anomalous": false,
+    "latency_mean_s": null,
+    "latency_max_s": null,
+    "result": "PASS"
+   },
+   {
+    "scenario": "B Stuck Inlet Valve",
+    "code": "B",
+    "expected_rules": [
+     "PHYS-004"
+    ],
+    "allowed_rules": [],
+    "runs": 3,
+    "detected": 3,
+    "false_positives": 0,
+    "rules_fired": [
+     "PHYS-004"
+    ],
+    "classification_expected": "equipment_fault",
+    "classification_ok": 3,
+    "classifications": [
+     "equipment_fault"
+    ],
+    "anomalous": true,
+    "latency_mean_s": 9.0,
+    "latency_max_s": 9.0,
+    "result": "PASS"
+   },
+   {
+    "scenario": "C Sensor Value Manipulation",
+    "code": "C",
+    "expected_rules": [
+     "PHYS-001",
+     "PHYS-002"
+    ],
+    "allowed_rules": [
+     "PHYS-003"
+    ],
+    "runs": 3,
+    "detected": 3,
+    "false_positives": 0,
+    "rules_fired": [
+     "PHYS-001",
+     "PHYS-002",
+     "PHYS-003"
+    ],
+    "classification_expected": "suspected_manipulation",
+    "classification_ok": 3,
+    "classifications": [
+     "suspected_manipulation"
+    ],
+    "anomalous": true,
+    "latency_mean_s": 6.5,
+    "latency_max_s": 6.5,
+    "result": "PASS"
+   },
+   {
+    "scenario": "D Pump Fault",
+    "code": "D",
+    "expected_rules": [
+     "PHYS-005"
+    ],
+    "allowed_rules": [],
+    "runs": 3,
+    "detected": 3,
+    "false_positives": 0,
+    "rules_fired": [
+     "PHYS-005"
+    ],
+    "classification_expected": "equipment_fault",
+    "classification_ok": 3,
+    "classifications": [
+     "equipment_fault"
+    ],
+    "anomalous": true,
+    "latency_mean_s": 5.0,
+    "latency_max_s": 5.0,
+    "result": "PASS"
+   },
+   {
+    "scenario": "E Blocked Outlet",
+    "code": "E",
+    "expected_rules": [
+     "PHYS-007"
+    ],
+    "allowed_rules": [],
+    "runs": 3,
+    "detected": 3,
+    "false_positives": 0,
+    "rules_fired": [
+     "PHYS-007"
+    ],
+    "classification_expected": "physical_anomaly",
+    "classification_ok": 3,
+    "classifications": [
+     "physical_anomaly"
+    ],
+    "anomalous": true,
+    "latency_mean_s": 9.0,
+    "latency_max_s": 9.0,
+    "result": "PASS"
+   },
+   {
+    "scenario": "F Frozen Telemetry [LT-102 stuck]",
+    "code": "F",
+    "expected_rules": [
+     "PHYS-006"
+    ],
+    "allowed_rules": [
+     "PHYS-001",
+     "PHYS-002",
+     "PHYS-003"
+    ],
+    "runs": 3,
+    "detected": 3,
+    "false_positives": 0,
+    "rules_fired": [
+     "PHYS-001",
+     "PHYS-002",
+     "PHYS-003",
+     "PHYS-006"
+    ],
+    "classification_expected": "equipment_fault",
+    "classification_ok": 3,
+    "classifications": [
+     "equipment_fault"
+    ],
+    "anomalous": true,
+    "latency_mean_s": 23.0,
+    "latency_max_s": 23.0,
+    "result": "PASS"
+   },
+   {
+    "scenario": "F Frozen Telemetry [LT-102 stale]",
+    "code": "F",
+    "expected_rules": [
+     "DATA-001"
+    ],
+    "allowed_rules": [],
+    "runs": 3,
+    "detected": 3,
+    "false_positives": 0,
+    "rules_fired": [
+     "DATA-001"
+    ],
+    "classification_expected": "data_quality",
+    "classification_ok": 3,
+    "classifications": [
+     "data_quality"
+    ],
+    "anomalous": true,
+    "latency_mean_s": 4.0,
+    "latency_max_s": 4.0,
+    "result": "PASS"
+   },
+   {
+    "scenario": "F Frozen Telemetry [FT-102 stuck]",
+    "code": "F",
+    "expected_rules": [
+     "PHYS-006"
+    ],
+    "allowed_rules": [
+     "PHYS-001",
+     "PHYS-005",
+     "PHYS-007"
+    ],
+    "runs": 3,
+    "detected": 3,
+    "false_positives": 0,
+    "rules_fired": [
+     "PHYS-006",
+     "PHYS-007"
+    ],
+    "classification_expected": "equipment_fault",
+    "classification_ok": 3,
+    "classifications": [
+     "equipment_fault"
+    ],
+    "anomalous": true,
+    "latency_mean_s": 26.33,
+    "latency_max_s": 27.5,
+    "result": "PASS"
+   },
+   {
+    "scenario": "G Gradual Sensor Drift",
+    "code": "G",
+    "expected_rules": [
+     "PHYS-001",
+     "PHYS-002"
+    ],
+    "allowed_rules": [
+     "PHYS-003"
+    ],
+    "runs": 3,
+    "detected": 3,
+    "false_positives": 0,
+    "rules_fired": [
+     "PHYS-001",
+     "PHYS-002",
+     "PHYS-003"
+    ],
+    "classification_expected": "equipment_fault",
+    "classification_ok": 3,
+    "classifications": [
+     "equipment_fault"
+    ],
+    "anomalous": true,
+    "latency_mean_s": 17.5,
+    "latency_max_s": 18.5,
+    "result": "PASS"
+   },
+   {
+    "scenario": "H Conflicting Measurements",
+    "code": "H",
+    "expected_rules": [
+     "PHYS-002"
+    ],
+    "allowed_rules": [
+     "PHYS-001",
+     "PHYS-003"
+    ],
+    "runs": 3,
+    "detected": 3,
+    "false_positives": 0,
+    "rules_fired": [
+     "PHYS-001",
+     "PHYS-002",
+     "PHYS-003"
+    ],
+    "classification_expected": "equipment_fault",
+    "classification_ok": 3,
+    "classifications": [
+     "equipment_fault"
+    ],
+    "anomalous": true,
+    "latency_mean_s": 5.5,
+    "latency_max_s": 5.5,
+    "result": "PASS"
+   }
+  ]
+ },
+ "cases": [
+  {
+   "name": "A Normal Operation (30 min)",
+   "scenario_id": "normal-operation",
+   "code": "A",
+   "seed": 1337,
+   "params": {},
+   "anomalous": false,
+   "onset_t": 120.0,
+   "stop_t": 1920.0,
+   "expected_rules": [],
+   "allowed_rules": [],
+   "detected": false,
+   "latency_s": null,
+   "first_rule": null,
+   "rules_fired": [],
+   "attributed_alerts": 0,
+   "false_positive_alerts": 0,
+   "expected_classification": null,
+   "classification": null,
+   "classification_ok": null,
+   "alerts": [],
+   "simulated_s": 2010.0,
+   "passed": true
+  },
+  {
+   "name": "B Stuck Inlet Valve",
+   "scenario_id": "stuck-inlet-valve",
+   "code": "B",
+   "seed": 1337,
+   "params": {},
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-004"
+   ],
+   "allowed_rules": [],
+   "detected": true,
+   "latency_s": 9.0,
+   "first_rule": "PHYS-004",
+   "rules_fired": [
+    "PHYS-004"
+   ],
+   "attributed_alerts": 1,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-004",
+     "instance_key": "XV-101",
+     "raised_t": 134.0,
+     "first_seen_t": 131.0,
+     "cleared_t": 374.5,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "C Sensor Value Manipulation",
+   "scenario_id": "sensor-manipulation",
+   "code": "C",
+   "seed": 1337,
+   "params": {
+    "offset_m": -1.4,
+    "ramp_s": 50.0
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-001",
+    "PHYS-002"
+   ],
+   "allowed_rules": [
+    "PHYS-003"
+   ],
+   "detected": true,
+   "latency_s": 6.5,
+   "first_rule": "PHYS-001",
+   "rules_fired": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003"
+   ],
+   "attributed_alerts": 5,
+   "false_positive_alerts": 0,
+   "expected_classification": "suspected_manipulation",
+   "classification": "suspected_manipulation",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-101",
+     "raised_t": 128.0,
+     "first_seen_t": 127.0,
+     "cleared_t": 188.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000002",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-101",
+     "raised_t": 131.5,
+     "first_seen_t": 127.5,
+     "cleared_t": 244.0,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000003",
+     "rule_id": "PHYS-002",
+     "instance_key": "LT-101/LT-102",
+     "raised_t": 135.0,
+     "first_seen_t": 130.0,
+     "cleared_t": 378.0,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000004",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-101",
+     "raised_t": 366.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 380.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000005",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-101",
+     "raised_t": 369.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 435.5,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "D Pump Fault",
+   "scenario_id": "pump-fault",
+   "code": "D",
+   "seed": 1337,
+   "params": {
+    "head_factor": 0.15
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-005"
+   ],
+   "allowed_rules": [],
+   "detected": true,
+   "latency_s": 5.0,
+   "first_rule": "PHYS-005",
+   "rules_fired": [
+    "PHYS-005"
+   ],
+   "attributed_alerts": 1,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-005",
+     "instance_key": "P-101",
+     "raised_t": 130.0,
+     "first_seen_t": 126.0,
+     "cleared_t": 376.0,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "E Blocked Outlet",
+   "scenario_id": "blocked-outlet",
+   "code": "E",
+   "seed": 1337,
+   "params": {
+    "restriction": 0.75
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-007"
+   ],
+   "allowed_rules": [],
+   "detected": true,
+   "latency_s": 9.0,
+   "first_rule": "PHYS-007",
+   "rules_fired": [
+    "PHYS-007"
+   ],
+   "attributed_alerts": 1,
+   "false_positive_alerts": 0,
+   "expected_classification": "physical_anomaly",
+   "classification": "physical_anomaly",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-007",
+     "instance_key": "FT-102/PT-101",
+     "raised_t": 134.0,
+     "first_seen_t": 129.0,
+     "cleared_t": 376.0,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "F Frozen Telemetry [LT-102 stuck]",
+   "scenario_id": "frozen-telemetry",
+   "code": "F",
+   "seed": 1337,
+   "params": {
+    "signal": "LT-102",
+    "mode": "stuck"
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-006"
+   ],
+   "allowed_rules": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003"
+   ],
+   "detected": true,
+   "latency_s": 23.0,
+   "first_rule": "PHYS-006",
+   "rules_fired": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003",
+    "PHYS-006"
+   ],
+   "attributed_alerts": 4,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-006",
+     "instance_key": "LT-102",
+     "raised_t": 148.0,
+     "first_seen_t": 146.0,
+     "cleared_t": 369.5,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000002",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-102",
+     "raised_t": 154.0,
+     "first_seen_t": 150.0,
+     "cleared_t": 435.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000003",
+     "rule_id": "PHYS-002",
+     "instance_key": "LT-101/LT-102",
+     "raised_t": 187.5,
+     "first_seen_t": 182.5,
+     "cleared_t": 378.0,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000004",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-102",
+     "raised_t": 366.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 380.5,
+     "verdict": "allowed"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "F Frozen Telemetry [LT-102 stale]",
+   "scenario_id": "frozen-telemetry",
+   "code": "F",
+   "seed": 1337,
+   "params": {
+    "signal": "LT-102",
+    "mode": "stale"
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "DATA-001"
+   ],
+   "allowed_rules": [],
+   "detected": true,
+   "latency_s": 4.0,
+   "first_rule": "DATA-001",
+   "rules_fired": [
+    "DATA-001"
+   ],
+   "attributed_alerts": 1,
+   "false_positive_alerts": 0,
+   "expected_classification": "data_quality",
+   "classification": "data_quality",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "DATA-001",
+     "instance_key": "LT-102",
+     "raised_t": 129.0,
+     "first_seen_t": 128.0,
+     "cleared_t": 368.5,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "F Frozen Telemetry [FT-102 stuck]",
+   "scenario_id": "frozen-telemetry",
+   "code": "F",
+   "seed": 1337,
+   "params": {
+    "signal": "FT-102",
+    "mode": "stuck"
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-006"
+   ],
+   "allowed_rules": [
+    "PHYS-001",
+    "PHYS-005",
+    "PHYS-007"
+   ],
+   "detected": true,
+   "latency_s": 27.5,
+   "first_rule": "PHYS-006",
+   "rules_fired": [
+    "PHYS-006",
+    "PHYS-007"
+   ],
+   "attributed_alerts": 2,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-006",
+     "instance_key": "FT-102",
+     "raised_t": 152.5,
+     "first_seen_t": 150.5,
+     "cleared_t": 369.5,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000002",
+     "rule_id": "PHYS-007",
+     "instance_key": "FT-102/PT-101",
+     "raised_t": 326.0,
+     "first_seen_t": 321.0,
+     "cleared_t": 375.0,
+     "verdict": "allowed"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "G Gradual Sensor Drift",
+   "scenario_id": "sensor-drift",
+   "code": "G",
+   "seed": 1337,
+   "params": {
+    "signal": "LT-102",
+    "drift_mm_s": 2.0
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-001",
+    "PHYS-002"
+   ],
+   "allowed_rules": [
+    "PHYS-003"
+   ],
+   "detected": true,
+   "latency_s": 18.5,
+   "first_rule": "PHYS-001",
+   "rules_fired": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003"
+   ],
+   "attributed_alerts": 3,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-102",
+     "raised_t": 143.5,
+     "first_seen_t": 139.5,
+     "cleared_t": 435.5,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000002",
+     "rule_id": "PHYS-002",
+     "instance_key": "LT-101/LT-102",
+     "raised_t": 183.0,
+     "first_seen_t": 178.0,
+     "cleared_t": 378.0,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000003",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-102",
+     "raised_t": 366.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 380.5,
+     "verdict": "allowed"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "H Conflicting Measurements",
+   "scenario_id": "conflicting-measurements",
+   "code": "H",
+   "seed": 1337,
+   "params": {
+    "offset_m": 0.8
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-002"
+   ],
+   "allowed_rules": [
+    "PHYS-001",
+    "PHYS-003"
+   ],
+   "detected": true,
+   "latency_s": 5.5,
+   "first_rule": "PHYS-002",
+   "rules_fired": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003"
+   ],
+   "attributed_alerts": 5,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-102",
+     "raised_t": 126.5,
+     "first_seen_t": 125.5,
+     "cleared_t": 140.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000002",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-102",
+     "raised_t": 129.5,
+     "first_seen_t": 125.5,
+     "cleared_t": 195.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000003",
+     "rule_id": "PHYS-002",
+     "instance_key": "LT-101/LT-102",
+     "raised_t": 130.5,
+     "first_seen_t": 125.5,
+     "cleared_t": 378.0,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000004",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-102",
+     "raised_t": 366.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 380.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000005",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-102",
+     "raised_t": 369.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 435.5,
+     "verdict": "allowed"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "A Normal Operation (30 min)",
+   "scenario_id": "normal-operation",
+   "code": "A",
+   "seed": 2024,
+   "params": {},
+   "anomalous": false,
+   "onset_t": 120.0,
+   "stop_t": 1920.0,
+   "expected_rules": [],
+   "allowed_rules": [],
+   "detected": false,
+   "latency_s": null,
+   "first_rule": null,
+   "rules_fired": [],
+   "attributed_alerts": 0,
+   "false_positive_alerts": 0,
+   "expected_classification": null,
+   "classification": null,
+   "classification_ok": null,
+   "alerts": [],
+   "simulated_s": 2010.0,
+   "passed": true
+  },
+  {
+   "name": "B Stuck Inlet Valve",
+   "scenario_id": "stuck-inlet-valve",
+   "code": "B",
+   "seed": 2024,
+   "params": {},
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-004"
+   ],
+   "allowed_rules": [],
+   "detected": true,
+   "latency_s": 9.0,
+   "first_rule": "PHYS-004",
+   "rules_fired": [
+    "PHYS-004"
+   ],
+   "attributed_alerts": 1,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-004",
+     "instance_key": "XV-101",
+     "raised_t": 134.0,
+     "first_seen_t": 131.0,
+     "cleared_t": 374.0,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "C Sensor Value Manipulation",
+   "scenario_id": "sensor-manipulation",
+   "code": "C",
+   "seed": 2024,
+   "params": {
+    "offset_m": -1.4,
+    "ramp_s": 50.0
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-001",
+    "PHYS-002"
+   ],
+   "allowed_rules": [
+    "PHYS-003"
+   ],
+   "detected": true,
+   "latency_s": 6.5,
+   "first_rule": "PHYS-001",
+   "rules_fired": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003"
+   ],
+   "attributed_alerts": 5,
+   "false_positive_alerts": 0,
+   "expected_classification": "suspected_manipulation",
+   "classification": "suspected_manipulation",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-101",
+     "raised_t": 128.0,
+     "first_seen_t": 127.0,
+     "cleared_t": 188.0,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000002",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-101",
+     "raised_t": 131.5,
+     "first_seen_t": 127.5,
+     "cleared_t": 243.5,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000003",
+     "rule_id": "PHYS-002",
+     "instance_key": "LT-101/LT-102",
+     "raised_t": 135.0,
+     "first_seen_t": 130.0,
+     "cleared_t": 378.0,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000004",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-101",
+     "raised_t": 366.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 380.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000005",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-101",
+     "raised_t": 369.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 435.5,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "D Pump Fault",
+   "scenario_id": "pump-fault",
+   "code": "D",
+   "seed": 2024,
+   "params": {
+    "head_factor": 0.15
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-005"
+   ],
+   "allowed_rules": [],
+   "detected": true,
+   "latency_s": 5.0,
+   "first_rule": "PHYS-005",
+   "rules_fired": [
+    "PHYS-005"
+   ],
+   "attributed_alerts": 1,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-005",
+     "instance_key": "P-101",
+     "raised_t": 130.0,
+     "first_seen_t": 126.0,
+     "cleared_t": 376.0,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "E Blocked Outlet",
+   "scenario_id": "blocked-outlet",
+   "code": "E",
+   "seed": 2024,
+   "params": {
+    "restriction": 0.75
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-007"
+   ],
+   "allowed_rules": [],
+   "detected": true,
+   "latency_s": 9.0,
+   "first_rule": "PHYS-007",
+   "rules_fired": [
+    "PHYS-007"
+   ],
+   "attributed_alerts": 1,
+   "false_positive_alerts": 0,
+   "expected_classification": "physical_anomaly",
+   "classification": "physical_anomaly",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-007",
+     "instance_key": "FT-102/PT-101",
+     "raised_t": 134.0,
+     "first_seen_t": 129.0,
+     "cleared_t": 376.0,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "F Frozen Telemetry [LT-102 stuck]",
+   "scenario_id": "frozen-telemetry",
+   "code": "F",
+   "seed": 2024,
+   "params": {
+    "signal": "LT-102",
+    "mode": "stuck"
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-006"
+   ],
+   "allowed_rules": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003"
+   ],
+   "detected": true,
+   "latency_s": 23.0,
+   "first_rule": "PHYS-006",
+   "rules_fired": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003",
+    "PHYS-006"
+   ],
+   "attributed_alerts": 4,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-006",
+     "instance_key": "LT-102",
+     "raised_t": 148.0,
+     "first_seen_t": 146.0,
+     "cleared_t": 369.5,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000002",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-102",
+     "raised_t": 151.0,
+     "first_seen_t": 147.0,
+     "cleared_t": 435.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000003",
+     "rule_id": "PHYS-002",
+     "instance_key": "LT-101/LT-102",
+     "raised_t": 185.0,
+     "first_seen_t": 180.0,
+     "cleared_t": 378.0,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000004",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-102",
+     "raised_t": 366.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 380.5,
+     "verdict": "allowed"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "F Frozen Telemetry [LT-102 stale]",
+   "scenario_id": "frozen-telemetry",
+   "code": "F",
+   "seed": 2024,
+   "params": {
+    "signal": "LT-102",
+    "mode": "stale"
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "DATA-001"
+   ],
+   "allowed_rules": [],
+   "detected": true,
+   "latency_s": 4.0,
+   "first_rule": "DATA-001",
+   "rules_fired": [
+    "DATA-001"
+   ],
+   "attributed_alerts": 1,
+   "false_positive_alerts": 0,
+   "expected_classification": "data_quality",
+   "classification": "data_quality",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "DATA-001",
+     "instance_key": "LT-102",
+     "raised_t": 129.0,
+     "first_seen_t": 128.0,
+     "cleared_t": 368.5,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "F Frozen Telemetry [FT-102 stuck]",
+   "scenario_id": "frozen-telemetry",
+   "code": "F",
+   "seed": 2024,
+   "params": {
+    "signal": "FT-102",
+    "mode": "stuck"
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-006"
+   ],
+   "allowed_rules": [
+    "PHYS-001",
+    "PHYS-005",
+    "PHYS-007"
+   ],
+   "detected": true,
+   "latency_s": 24.0,
+   "first_rule": "PHYS-006",
+   "rules_fired": [
+    "PHYS-006"
+   ],
+   "attributed_alerts": 1,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-006",
+     "instance_key": "FT-102",
+     "raised_t": 149.0,
+     "first_seen_t": 147.0,
+     "cleared_t": 369.5,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "G Gradual Sensor Drift",
+   "scenario_id": "sensor-drift",
+   "code": "G",
+   "seed": 2024,
+   "params": {
+    "signal": "LT-102",
+    "drift_mm_s": 2.0
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-001",
+    "PHYS-002"
+   ],
+   "allowed_rules": [
+    "PHYS-003"
+   ],
+   "detected": true,
+   "latency_s": 16.0,
+   "first_rule": "PHYS-001",
+   "rules_fired": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003"
+   ],
+   "attributed_alerts": 3,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-102",
+     "raised_t": 141.0,
+     "first_seen_t": 137.0,
+     "cleared_t": 435.5,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000002",
+     "rule_id": "PHYS-002",
+     "instance_key": "LT-101/LT-102",
+     "raised_t": 182.0,
+     "first_seen_t": 177.0,
+     "cleared_t": 378.0,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000003",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-102",
+     "raised_t": 366.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 380.5,
+     "verdict": "allowed"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "H Conflicting Measurements",
+   "scenario_id": "conflicting-measurements",
+   "code": "H",
+   "seed": 2024,
+   "params": {
+    "offset_m": 0.8
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-002"
+   ],
+   "allowed_rules": [
+    "PHYS-001",
+    "PHYS-003"
+   ],
+   "detected": true,
+   "latency_s": 5.5,
+   "first_rule": "PHYS-002",
+   "rules_fired": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003"
+   ],
+   "attributed_alerts": 5,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-102",
+     "raised_t": 126.5,
+     "first_seen_t": 125.5,
+     "cleared_t": 140.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000002",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-102",
+     "raised_t": 129.5,
+     "first_seen_t": 125.5,
+     "cleared_t": 195.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000003",
+     "rule_id": "PHYS-002",
+     "instance_key": "LT-101/LT-102",
+     "raised_t": 130.5,
+     "first_seen_t": 125.5,
+     "cleared_t": 378.0,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000004",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-102",
+     "raised_t": 366.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 380.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000005",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-102",
+     "raised_t": 369.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 435.5,
+     "verdict": "allowed"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "A Normal Operation (30 min)",
+   "scenario_id": "normal-operation",
+   "code": "A",
+   "seed": 4242,
+   "params": {},
+   "anomalous": false,
+   "onset_t": 120.0,
+   "stop_t": 1920.0,
+   "expected_rules": [],
+   "allowed_rules": [],
+   "detected": false,
+   "latency_s": null,
+   "first_rule": null,
+   "rules_fired": [],
+   "attributed_alerts": 0,
+   "false_positive_alerts": 0,
+   "expected_classification": null,
+   "classification": null,
+   "classification_ok": null,
+   "alerts": [],
+   "simulated_s": 2010.0,
+   "passed": true
+  },
+  {
+   "name": "B Stuck Inlet Valve",
+   "scenario_id": "stuck-inlet-valve",
+   "code": "B",
+   "seed": 4242,
+   "params": {},
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-004"
+   ],
+   "allowed_rules": [],
+   "detected": true,
+   "latency_s": 9.0,
+   "first_rule": "PHYS-004",
+   "rules_fired": [
+    "PHYS-004"
+   ],
+   "attributed_alerts": 1,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-004",
+     "instance_key": "XV-101",
+     "raised_t": 134.0,
+     "first_seen_t": 131.0,
+     "cleared_t": 374.5,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "C Sensor Value Manipulation",
+   "scenario_id": "sensor-manipulation",
+   "code": "C",
+   "seed": 4242,
+   "params": {
+    "offset_m": -1.4,
+    "ramp_s": 50.0
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-001",
+    "PHYS-002"
+   ],
+   "allowed_rules": [
+    "PHYS-003"
+   ],
+   "detected": true,
+   "latency_s": 6.5,
+   "first_rule": "PHYS-001",
+   "rules_fired": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003"
+   ],
+   "attributed_alerts": 5,
+   "false_positive_alerts": 0,
+   "expected_classification": "suspected_manipulation",
+   "classification": "suspected_manipulation",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-101",
+     "raised_t": 128.0,
+     "first_seen_t": 127.0,
+     "cleared_t": 188.0,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000002",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-101",
+     "raised_t": 131.5,
+     "first_seen_t": 127.5,
+     "cleared_t": 243.5,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000003",
+     "rule_id": "PHYS-002",
+     "instance_key": "LT-101/LT-102",
+     "raised_t": 135.0,
+     "first_seen_t": 130.0,
+     "cleared_t": 378.0,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000004",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-101",
+     "raised_t": 366.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 380.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000005",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-101",
+     "raised_t": 369.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 435.5,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "D Pump Fault",
+   "scenario_id": "pump-fault",
+   "code": "D",
+   "seed": 4242,
+   "params": {
+    "head_factor": 0.15
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-005"
+   ],
+   "allowed_rules": [],
+   "detected": true,
+   "latency_s": 5.0,
+   "first_rule": "PHYS-005",
+   "rules_fired": [
+    "PHYS-005"
+   ],
+   "attributed_alerts": 1,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-005",
+     "instance_key": "P-101",
+     "raised_t": 130.0,
+     "first_seen_t": 126.0,
+     "cleared_t": 376.0,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "E Blocked Outlet",
+   "scenario_id": "blocked-outlet",
+   "code": "E",
+   "seed": 4242,
+   "params": {
+    "restriction": 0.75
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-007"
+   ],
+   "allowed_rules": [],
+   "detected": true,
+   "latency_s": 9.0,
+   "first_rule": "PHYS-007",
+   "rules_fired": [
+    "PHYS-007"
+   ],
+   "attributed_alerts": 1,
+   "false_positive_alerts": 0,
+   "expected_classification": "physical_anomaly",
+   "classification": "physical_anomaly",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-007",
+     "instance_key": "FT-102/PT-101",
+     "raised_t": 134.0,
+     "first_seen_t": 129.0,
+     "cleared_t": 376.0,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "F Frozen Telemetry [LT-102 stuck]",
+   "scenario_id": "frozen-telemetry",
+   "code": "F",
+   "seed": 4242,
+   "params": {
+    "signal": "LT-102",
+    "mode": "stuck"
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-006"
+   ],
+   "allowed_rules": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003"
+   ],
+   "detected": true,
+   "latency_s": 23.0,
+   "first_rule": "PHYS-006",
+   "rules_fired": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003",
+    "PHYS-006"
+   ],
+   "attributed_alerts": 4,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-006",
+     "instance_key": "LT-102",
+     "raised_t": 148.0,
+     "first_seen_t": 146.0,
+     "cleared_t": 369.5,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000002",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-102",
+     "raised_t": 155.5,
+     "first_seen_t": 151.5,
+     "cleared_t": 435.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000003",
+     "rule_id": "PHYS-002",
+     "instance_key": "LT-101/LT-102",
+     "raised_t": 187.0,
+     "first_seen_t": 182.0,
+     "cleared_t": 378.0,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000004",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-102",
+     "raised_t": 366.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 380.5,
+     "verdict": "allowed"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "F Frozen Telemetry [LT-102 stale]",
+   "scenario_id": "frozen-telemetry",
+   "code": "F",
+   "seed": 4242,
+   "params": {
+    "signal": "LT-102",
+    "mode": "stale"
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "DATA-001"
+   ],
+   "allowed_rules": [],
+   "detected": true,
+   "latency_s": 4.0,
+   "first_rule": "DATA-001",
+   "rules_fired": [
+    "DATA-001"
+   ],
+   "attributed_alerts": 1,
+   "false_positive_alerts": 0,
+   "expected_classification": "data_quality",
+   "classification": "data_quality",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "DATA-001",
+     "instance_key": "LT-102",
+     "raised_t": 129.0,
+     "first_seen_t": 128.0,
+     "cleared_t": 368.5,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "F Frozen Telemetry [FT-102 stuck]",
+   "scenario_id": "frozen-telemetry",
+   "code": "F",
+   "seed": 4242,
+   "params": {
+    "signal": "FT-102",
+    "mode": "stuck"
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-006"
+   ],
+   "allowed_rules": [
+    "PHYS-001",
+    "PHYS-005",
+    "PHYS-007"
+   ],
+   "detected": true,
+   "latency_s": 27.5,
+   "first_rule": "PHYS-006",
+   "rules_fired": [
+    "PHYS-006"
+   ],
+   "attributed_alerts": 1,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-006",
+     "instance_key": "FT-102",
+     "raised_t": 152.5,
+     "first_seen_t": 150.5,
+     "cleared_t": 369.5,
+     "verdict": "expected"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "G Gradual Sensor Drift",
+   "scenario_id": "sensor-drift",
+   "code": "G",
+   "seed": 4242,
+   "params": {
+    "signal": "LT-102",
+    "drift_mm_s": 2.0
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-001",
+    "PHYS-002"
+   ],
+   "allowed_rules": [
+    "PHYS-003"
+   ],
+   "detected": true,
+   "latency_s": 18.0,
+   "first_rule": "PHYS-001",
+   "rules_fired": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003"
+   ],
+   "attributed_alerts": 3,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-102",
+     "raised_t": 143.0,
+     "first_seen_t": 139.0,
+     "cleared_t": 435.5,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000002",
+     "rule_id": "PHYS-002",
+     "instance_key": "LT-101/LT-102",
+     "raised_t": 183.5,
+     "first_seen_t": 178.5,
+     "cleared_t": 378.0,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000003",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-102",
+     "raised_t": 366.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 380.5,
+     "verdict": "allowed"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  },
+  {
+   "name": "H Conflicting Measurements",
+   "scenario_id": "conflicting-measurements",
+   "code": "H",
+   "seed": 4242,
+   "params": {
+    "offset_m": 0.8
+   },
+   "anomalous": true,
+   "onset_t": 125.0,
+   "stop_t": 365.0,
+   "expected_rules": [
+    "PHYS-002"
+   ],
+   "allowed_rules": [
+    "PHYS-001",
+    "PHYS-003"
+   ],
+   "detected": true,
+   "latency_s": 5.5,
+   "first_rule": "PHYS-002",
+   "rules_fired": [
+    "PHYS-001",
+    "PHYS-002",
+    "PHYS-003"
+   ],
+   "attributed_alerts": 5,
+   "false_positive_alerts": 0,
+   "expected_classification": "equipment_fault",
+   "classification": "equipment_fault",
+   "classification_ok": true,
+   "alerts": [
+    {
+     "alert_id": "DET-000001",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-102",
+     "raised_t": 126.5,
+     "first_seen_t": 125.5,
+     "cleared_t": 140.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000002",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-102",
+     "raised_t": 129.5,
+     "first_seen_t": 125.5,
+     "cleared_t": 195.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000003",
+     "rule_id": "PHYS-002",
+     "instance_key": "LT-101/LT-102",
+     "raised_t": 130.5,
+     "first_seen_t": 125.5,
+     "cleared_t": 378.0,
+     "verdict": "expected"
+    },
+    {
+     "alert_id": "DET-000004",
+     "rule_id": "PHYS-003",
+     "instance_key": "LT-102",
+     "raised_t": 366.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 380.5,
+     "verdict": "allowed"
+    },
+    {
+     "alert_id": "DET-000005",
+     "rule_id": "PHYS-001",
+     "instance_key": "LT-102",
+     "raised_t": 369.5,
+     "first_seen_t": 365.5,
+     "cleared_t": 435.5,
+     "verdict": "allowed"
+    }
+   ],
+   "simulated_s": 455.0,
+   "passed": true
+  }
+ ],
+ "wall_time_s": 74.98
+}

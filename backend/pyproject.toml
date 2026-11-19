@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ot-sentinel-twin"
+version = "0.1.0"
+description = "Explainable, physics-based anomaly detection on a fully synthetic industrial digital twin."
+requires-python = ">=3.12"
+license = "Apache-2.0"
+authors = [{ name = "OT Sentinel Twin contributors" }]
+dependencies = [
+    "fastapi>=0.115,<1.0",
+    "uvicorn>=0.32,<1.0",
+    "websockets>=13.0",
+    "pydantic>=2.9,<3.0",
+    "sqlalchemy>=2.0.36,<3.0",
+    "numpy>=2.1",
+    "pandas>=2.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "httpx>=0.27",
+    "ruff>=0.8",
+    "mypy>=1.13",
+    "pip-audit>=2.7",
+]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "SIM", "RUF"]
+ignore = [
+    "S101",   # assert is fine in tests
+    "S311",   # pseudo-random generators are intentional: this is a seeded simulation, not crypto
+    "B008",   # FastAPI dependency injection pattern
+    "RUF012",
+]
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 125  # formatter wraps code at 110; long literals may go to 125
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S", "B"]
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+warn_unused_ignores = true
+check_untyped_defs = true
+no_implicit_optional = true
+exclude = ["tests/"]

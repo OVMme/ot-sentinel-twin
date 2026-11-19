@@ -1,0 +1,49 @@
+# OT Sentinel Twin - local, isolated stack. Everything is synthetic; nothing here talks to real equipment.
+#   docker compose up --build            -> http://127.0.0.1:8080 (override with OTST_WEB_PORT)
+#   docker compose -f docker-compose.yml -f docker-compose.demo.yml up --build   (read-only demo storyline)
+name: ot-sentinel-twin
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      OTST_DATABASE_URL: sqlite:////data/ot_sentinel.db
+      OTST_CORS_ORIGINS: http://127.0.0.1:${OTST_WEB_PORT:-8080},http://localhost:${OTST_WEB_PORT:-8080}
+      OTST_AUTOSTART: "true"
+      OTST_DEMO_MODE: ${OTST_DEMO_MODE:-false}
+      OTST_READ_ONLY: ${OTST_READ_ONLY:-false}
+      OTST_API_TOKEN: ${OTST_API_TOKEN:-}
+    volumes:
+      - otst-data:/data
+    ports:
+      - "127.0.0.1:${OTST_API_PORT:-8000}:8000" # API + OpenAPI docs, bound to localhost only
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    mem_limit: 512m
+    cpus: 1.0
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${OTST_WEB_PORT:-8080}:8080"
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    mem_limit: 128m
+    restart: unless-stopped
+
+volumes:
+  otst-data:
