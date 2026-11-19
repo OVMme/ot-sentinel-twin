@@ -1,6 +1,6 @@
 # OT Sentinel Twin - backend (FastAPI + simulation + detection)
 # Build context: repository root (see docker-compose.yml). Synthetic data only; runs unprivileged.
-FROM python:3.12-slim
+FROM python:3.15-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
