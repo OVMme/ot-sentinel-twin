@@ -1,6 +1,6 @@
 # Publishing on GitHub
 
-Nothing has been pushed. These steps publish the local repository once you are ready.
+Repository: https://github.com/OVMme/ot-sentinel-twin. The steps below publish a local clone (for example a fork).
 
 ## Repository settings
 
@@ -31,4 +31,4 @@ and `git push origin v0.1.0`, and draft the release from the tag using `docs/lau
 1. Wait for **CI** and **CodeQL** to finish; fix anything environment-specific before announcing.
 2. Enable *Private vulnerability reporting* (Settings → Code security) — `SECURITY.md` points to it.
 3. Enable Dependabot alerts and security updates.
-4. Replace `<your-account>` in `README.md` and `<REPOSITORY URL>` in `docs/launch/LINKEDIN.md`.
+4. If you publish under another account, update the repository URL in `README.md` and `docs/launch/LINKEDIN.md`.

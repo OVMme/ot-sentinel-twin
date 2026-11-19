@@ -1,6 +1,6 @@
 # LinkedIn launch materials
 
-> Drafts only — nothing has been posted. Replace `<REPOSITORY URL>` after the repository is published.
+> Drafts only — nothing has been posted.
 
 ## A. Technical post
 
@@ -32,7 +32,7 @@ up to 2× mismatch, and it degrades (F1 0.69) at 3× — documented, along with 
 Everything is synthetic and local: no PLCs, no protocols, no real networks. FastAPI + NumPy on the backend, React +
 TypeScript + ECharts on the front, Docker Compose to run it.
 
-Repository: <REPOSITORY URL>
+Repository: https://github.com/OVMme/ot-sentinel-twin
 
 Feedback from OT engineers and detection engineers is very welcome.
 
@@ -45,6 +45,6 @@ the network. A synthetic digital twin, 8 explainable rules (mass balance, pump c
 telemetry…), incident investigation and deterministic replay. Every scenario detected, 0 false positives in 1.5 h of
 normal operation — and an honest robustness study showing where it breaks. 100 % synthetic, runs locally with Docker.
 
-<REPOSITORY URL>
+https://github.com/OVMme/ot-sentinel-twin
 
 #OTSecurity #ICS #DetectionEngineering #DigitalTwin

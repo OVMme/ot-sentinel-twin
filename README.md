@@ -9,6 +9,7 @@
 An open-source OT/ICS security lab that checks whether industrial telemetry is *physically possible* —
 an animated digital twin, eight explainable physics-based detection rules, an incident workspace and deterministic replay.
 
+[![CI](https://github.com/OVMme/ot-sentinel-twin/actions/workflows/ci.yml/badge.svg)](https://github.com/OVMme/ot-sentinel-twin/actions/workflows/ci.yml)
 ![License](https://img.shields.io/badge/license-Apache--2.0-22d3ee)
 ![Python](https://img.shields.io/badge/python-3.12%2B-3776ab)
 ![React](https://img.shields.io/badge/react-18-61dafb)
@@ -142,7 +143,7 @@ More detail: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 ### Docker (recommended)
 
 ```bash
-git clone https://github.com/<your-account>/ot-sentinel-twin.git
+git clone https://github.com/OVMme/ot-sentinel-twin.git
 cd ot-sentinel-twin
 docker compose up --build
 ```

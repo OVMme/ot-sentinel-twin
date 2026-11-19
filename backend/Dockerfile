@@ -11,7 +11,8 @@ WORKDIR /app
 
 COPY backend/pyproject.toml ./
 COPY backend/app ./app
-RUN pip install --no-cache-dir . \
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir . \
     && useradd --system --uid 10001 --home-dir /app --shell /usr/sbin/nologin otst \
     && mkdir -p /data \
     && chown -R otst:otst /data
